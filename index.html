@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Diwali Surprise Story</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Quicksand:wght@500;700&display=swap">
+<style>
+:root{--ink:#1f1a3d;--ink2:#342d63;--gold:#ffd27a;--pink:#ff8fb1;--peach:#ffb37a;--cream:#fff6ea;--muted:#cfc5ea}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:radial-gradient(circle at 20% 0%,var(--ink2),var(--ink) 70%) fixed,var(--ink);color:var(--cream);font-family:"Quicksand",system-ui,sans-serif;overflow:hidden;user-select:none;-webkit-tap-highlight-color:transparent}
+.deck{position:fixed;inset:0}
+.page{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:max(56px,env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) max(56px,env(safe-area-inset-bottom)) max(20px,env(safe-area-inset-left));opacity:0;visibility:hidden;transform:translateX(40px);transition:opacity .7s ease,transform .7s ease,visibility .7s}
+.page.active{opacity:1;visibility:visible;transform:none}
+.page.before{transform:translateX(-40px)}
+.title{font-family:"Baloo 2",system-ui,sans-serif;font-weight:800;font-size:clamp(34px,9.5vw,62px);line-height:1.05;margin:0;text-wrap:balance;color:var(--gold)}
+.lead{color:var(--muted);font-size:18px;margin:14px 0 0;max-width:30ch}
+.tag{font-family:"Baloo 2",sans-serif;font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:13px;color:var(--pink);margin:0 0 8px}
+.hint{position:absolute;bottom:max(20px,env(safe-area-inset-bottom));left:0;right:0;margin:0;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);animation:bob 2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-4px);opacity:.6}}
+
+/* PAGE 1: lanterns */
+.sky{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.lantern{position:absolute;bottom:-120px;width:44px;height:58px;animation:float-up linear forwards}
+.lantern .body{width:100%;height:100%;border-radius:50% 50% 46% 46%/60% 60% 40% 40%;background:radial-gradient(circle at 50% 40%,#fff3c4,var(--peach) 55%,var(--pink));box-shadow:0 0 24px 6px rgba(255,190,120,.55);animation:sway 3s ease-in-out infinite alternate}
+.lantern .body::after{content:"";position:absolute;left:50%;top:-8px;width:12px;height:8px;margin-left:-6px;background:#c8673a;border-radius:3px 3px 0 0}
+.lantern{position:absolute}
+@keyframes float-up{to{transform:translateY(calc(-100vh - 200px))}}
+@keyframes sway{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
+.spark{position:absolute;color:var(--gold);font-size:18px;pointer-events:none;animation:spark .9s ease-out forwards;text-shadow:0 0 10px var(--gold)}
+@keyframes spark{to{transform:translate(var(--x),var(--y)) scale(.2);opacity:0}}
+.ambient{position:absolute;bottom:-80px;width:26px;height:34px;opacity:.5;animation:float-up 16s linear infinite}
+
+/* PAGE 2: rangoli heart */
+.rangoli{width:min(72vw,300px);height:auto;overflow:visible}
+.rdot{fill:var(--gold);transform-box:fill-box;transform-origin:center;transform:scale(0);opacity:0}
+.page.active .rdot{animation:pop .5s cubic-bezier(.3,1.6,.5,1) forwards;animation-delay:calc(var(--i)*.05s + .2s)}
+@keyframes pop{to{transform:scale(1);opacity:1}}
+.heart-line{fill:none;stroke:var(--pink);stroke-width:5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;filter:drop-shadow(0 0 8px rgba(255,143,177,.7))}
+.page.active .heart-line{animation:draw 2s ease forwards 1.4s}
+@keyframes draw{to{stroke-dashoffset:0}}
+.heart-fill{fill:var(--pink);opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.5)}
+.page.active .heart-fill{animation:heartbeat 1.4s ease-in-out infinite 3.6s;opacity:.9}
+@keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.12)}30%{transform:scale(1)}45%{transform:scale(1.08)}}
+
+/* PAGE 3: diya character */
+.buddy{width:min(56vw,230px);height:auto;cursor:pointer;animation:wiggle 3.2s ease-in-out infinite}
+@keyframes wiggle{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(2deg)}}
+.buddy .eye{transform-box:fill-box;transform-origin:center;animation:blink 4s infinite}
+.buddy .eye.r{animation-delay:.05s}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+.buddy .flame{transform-box:fill-box;transform-origin:50% 100%;animation:flick .25s ease-in-out infinite alternate}
+@keyframes flick{to{transform:scale(.92,1.08)}}
+.buddy .blush{opacity:.6}
+.bubble{margin-top:18px;max-width:320px;background:rgba(255,246,234,.1);border:1px solid rgba(255,210,122,.3);border-radius:24px;padding:18px 20px;position:relative}
+.bubble::before{content:"";position:absolute;top:-10px;left:50%;margin-left:-10px;border:10px solid transparent;border-top:0;border-bottom-color:rgba(255,246,234,.1)}
+.verse{font-family:"Baloo 2",sans-serif;font-weight:600;font-size:clamp(18px,5vw,21px);line-height:1.45;margin:0}
+.verse span{display:block;opacity:0}
+.page.active .verse span{animation:rise .8s ease forwards;animation-delay:calc(var(--i)*.9s + .6s)}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.final{font-family:"Baloo 2",sans-serif;font-weight:800;color:var(--pink);font-size:clamp(22px,6vw,28px);margin:18px 0 0;opacity:0}
+.page.active .final{animation:rise .8s ease forwards 3.6s}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .page{opacity:0;visibility:hidden}.page.active{opacity:1;visibility:visible}
+  .rdot{opacity:1;transform:none}.heart-line{stroke-dashoffset:0}.heart-fill{opacity:.9;transform:none}
+  .verse span,.final{opacity:1}.lantern{display:none}.ambient{display:none}
+}
+</style>
+</head>
+<body>
+<main class="deck" id="deck">
+
+  <!-- PAGE 1 -->
+  <section class="page active" aria-label="Page 1">
+    <div class="sky" id="sky" aria-hidden="true"></div>
+    <p class="tag">Diwali 2026</p>
+    <h1 class="title">Akaash mein<br>kandil jalaye</h1>
+    <p class="lead">Har tap par ek naya kandil udega, tumhare liye.</p>
+    <p class="hint">Tap karo</p>
+  </section>
+
+  <!-- PAGE 2 -->
+  <section class="page" aria-label="Page 2">
+    <svg class="rangoli" viewBox="0 0 200 200" aria-hidden="true">
+      <circle class="rdot" style="--i:0" cx="20" cy="20" r="5"/>
+      <circle class="rdot" style="--i:1" cx="180" cy="20" r="5"/>
+      <circle class="rdot" style="--i:2" cx="20" cy="180" r="5"/>
+      <circle class="rdot" style="--i:3" cx="180" cy="180" r="5"/>
+      <circle class="rdot" style="--i:4" cx="100" cy="8" r="4"/>
+      <circle class="rdot" style="--i:5" cx="100" cy="192" r="4"/>
+      <circle class="rdot" style="--i:6" cx="8" cy="100" r="4"/>
+      <circle class="rdot" style="--i:7" cx="192" cy="100" r="4"/>
+      <circle class="rdot" style="--i:8" cx="55" cy="55" r="3"/>
+      <circle class="rdot" style="--i:9" cx="145" cy="55" r="3"/>
+      <circle class="rdot" style="--i:10" cx="55" cy="145" r="3"/>
+      <circle class="rdot" style="--i:11" cx="145" cy="145" r="3"/>
+      <path class="heart-fill" d="M100 165 C40 120 22 92 32 62 C42 34 84 34 100 62 C116 34 158 34 168 62 C178 92 160 120 100 165 Z"/>
+      <path class="heart-line" pathLength="1" d="M100 165 C40 120 22 92 32 62 C42 34 84 34 100 62 C116 34 158 34 168 62 C178 92 160 120 100 165 Z"/>
+    </svg>
+    <p class="tag" style="margin-top:22px">Rangoli dil ki</p>
+    <h2 class="title" style="font-size:clamp(26px,7.5vw,40px)">Tumhari muskaan se<br>rangoli sajti hai</h2>
+    <p class="hint">Tap karo</p>
+  </section>
+
+  <!-- PAGE 3 -->
+  <section class="page" aria-label="Page 3">
+    <svg class="buddy" id="buddy" viewBox="0 0 200 200" aria-hidden="true">
+      <ellipse cx="100" cy="186" rx="62" ry="8" fill="#000" opacity=".25"/>
+      <path d="M40 120 Q40 170 100 172 Q160 170 160 120 Z" fill="#e08a3a"/>
+      <path d="M30 120 Q100 96 170 120 Q160 136 100 138 Q40 136 30 120 Z" fill="#ffb37a"/>
+      <ellipse cx="100" cy="120" rx="58" ry="10" fill="#7a2e12" opacity=".4"/>
+      <path class="flame" d="M100 40 C112 60 118 74 100 92 C82 74 88 60 100 40 Z" fill="#ffd27a"/>
+      <circle cx="100" cy="68" r="10" fill="#fff6ea" opacity=".6"/>
+      <ellipse class="eye l" cx="80" cy="128" rx="6" ry="8" fill="#1f1a3d"/>
+      <ellipse class="eye r" cx="120" cy="128" rx="6" ry="8" fill="#1f1a3d"/>
+      <circle cx="72" cy="142" r="7" fill="#ff8fb1" class="blush"/>
+      <circle cx="128" cy="142" r="7" fill="#ff8fb1" class="blush"/>
+      <path d="M90 144 Q100 154 110 144" stroke="#1f1a3d" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div class="bubble">
+      <p class="verse">
+        <span style="--i:0">Hazaaron diye jalein, par ek roshni dil ko bhaati hai,</span>
+        <span style="--i:1">Tum jo muskuraao toh har raat Diwali ho jaati hai.</span>
+      </p>
+    </div>
+    <p class="final">Happy Diwali, meri jaan!</p>
+    <p class="hint">Phir se shuru karo</p>
+  </section>
+
+</main>
+
+<script>
+(function () {
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var pages = Array.prototype.slice.call(document.querySelectorAll(".page"));
+  var sky = document.getElementById("sky");
+  var cur = 0;
+
+  function lanternAt(x, y) {
+    var l = document.createElement("div");
+    l.className = "lantern";
+    l.style.left = (x - 22) + "px";
+    l.style.top = y + "px";
+    l.style.animationDuration = (4 + Math.random() * 2.5) + "s";
+    l.innerHTML = '<div class="body"></div>';
+    sky.appendChild(l);
+    l.addEventListener("animationend", function () { l.remove(); });
+  }
+
+  function sparkleAt(x, y) {
+    var chars = ["\u2726", "\u2727", "\u2022"];
+    for (var i = 0; i < 10; i++) {
+      var s = document.createElement("span");
+      s.className = "spark";
+      s.textContent = chars[i % chars.length];
+      var a = Math.random() * Math.PI * 2, d = 60 + Math.random() * 80;
+      s.style.left = x + "px";
+      s.style.top = y + "px";
+      s.style.setProperty("--x", Math.cos(a) * d + "px");
+      s.style.setProperty("--y", Math.sin(a) * d + "px");
+      document.body.appendChild(s);
+      s.addEventListener("animationend", function (e) { e.target.remove(); });
+    }
+  }
+
+  // Ambient lanterns drift on page 1
+  for (var k = 0; k < 4; k++) {
+    var amb = document.createElement("div");
+    amb.className = "ambient";
+    amb.style.left = (10 + Math.random() * 80) + "%";
+    amb.style.animationDelay = (-Math.random() * 16) + "s";
+    amb.innerHTML = '<div class="body" style="width:100%;height:100%;border-radius:50%;background:radial-gradient(#fff3c4,#ffb37a 60%,transparent);"></div>';
+    sky.appendChild(amb);
+  }
+
+  function go(i) {
+    cur = (i + pages.length) % pages.length;
+    pages.forEach(function (p, k) {
+      p.classList.toggle("active", k === cur);
+      p.classList.toggle("before", k < cur);
+    });
+  }
+
+  document.addEventListener("pointerdown", function (e) {
+    if (e.target.closest("a,button,input")) return;
+    var x = e.clientX, y = e.clientY;
+    if (cur === 0) {
+      if (!reduce) lanternAt(x, y);
+      if (!reduce) setTimeout(function () { lanternAt(x + 30, y); }, 200);
+      if (!reduce) sparkleAt(x, y);
+    } else {
+      if (!reduce) sparkleAt(x, y);
+    }
+    // Tap on page 1 adds lanterns; a second tap moves on after a short pause
+    if (cur === 0 && window.__tapped1) { go(cur + 1); }
+    else if (cur === 0) { window.__tapped1 = true; setTimeout(function(){ if(cur===0) go(1); }, 900); }
+    else { go(cur + 1); }
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight" || e.key === " " || e.key === "Enter") { e.preventDefault(); go(cur + 1); }
+    else if (e.key === "ArrowLeft") go(cur - 1);
+  });
+})();
+</script>
+</body>
+</html>
